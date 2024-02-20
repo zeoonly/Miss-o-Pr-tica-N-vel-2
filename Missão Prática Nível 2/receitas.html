@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Receitas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .card {
+            width: 250px;
+            margin: 10px;
+        }
+        .card-img-top {
+            width: 100%;
+            height: auto;
+        }
+        #pnlCatalogo {
+            display: flex; /* Torna o contêiner flexível */
+            justify-content: center; /* Centraliza os elementos horizontalmente */
+            flex-wrap: wrap; /* Permite que os elementos quebrem para a próxima linha conforme necessário */
+        }
+    </style>
+</head>
+<body onload="preencheCatalogo()">
+
+<div class="container-fluid bg-warning">
+    <h1 class="text-center">Catálogo de Receitas</h1>
+
+    <div id="pnlCatalogo" class="d-flex flex-wrap"></div>
+</div>
+
+<script>
+    const receitas = [
+        {
+            titulo: "Bolo de Café",
+            imagem: "img/arroz.png",
+            preparo: "Deixe a couve-flor picada. Adicione os ingredientes e refogue bem. Adicione sal, tampe a panela e deixe cozinha.",
+            ingredientes: ["Arroz", "Couve-Flor", "Cebola Média", "Azeite"]
+        },
+        {
+            titulo: "Bolo de Café",
+            imagem: "img/bolo.png",
+            preparo: "Bata o açúcar, as gemas e o café. Adicione farinha e chocolate e mexa bem. Bata as claras e junte à mistura.",
+            ingredientes: ["Farinha de trigo", "Açúcar", "Cacau em pó", "Ovos", "Leite", "Óleo", "Fermento em pó"]
+        },
+        {
+            titulo: "Coxinha de Brigadeiro",
+            imagem: "img/brigadeiro.png",
+            preparo: "Junte o leite condensado, chocolate em pó e manteiga. Aqueça o fogo baixo. Envolva os morangos e passe no granulado.",
+            ingredientes: ["Leite Condensado", "Chocolate em Pó", "Manteiga", "Morango", "Chocolate Granulado"]
+        }
+    ];
+
+    function getListaIngredientes(receita) {
+        return `<ul>${receita.ingredientes.map(item => `<li>${item}</li>`).join("")}</ul>`;
+    }
+
+    function getCard(receita) {
+        return `
+            <div class="card">
+                <img src="${receita.imagem}" class="card-img-top" alt="${receita.titulo}">
+                <div class="card-body">
+                    <h5 class="card-title">${receita.titulo}</h5>
+                    <div class="card-text">
+                        ${getListaIngredientes(receita)}
+                        <hr>
+                        <p>${receita.preparo}</p>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    function preencheCatalogo() {
+        var pnlCatalogo = document.getElementById("pnlCatalogo");
+        var textoHTML = receitas.map(receita => getCard(receita)).join("");
+        pnlCatalogo.innerHTML = textoHTML;
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script type="text/javascript" src="/ordenado.js"></script>
+<title>Sort and Shuffle</title>
+</head>
+<body>
+
+<input type="number" id="valor">
+<button onclick="add()">Adicionar</button><br><br>
+
+<select id="algoritmo">
+  <option value="bubbleSort" selected>Blubble Sort</option>
+  <option value="selectionSort">Selection Sort</option>
+  <option value="quickSort">Quick Sort</option>
+</select>
+<button onclick="ordenar()">Ordenar</button>
+<button onclick="misturar()">Misturar</button><br><br>
+
+<ul id="valores"></ul>
+
+<script>
+function add() {
+  var valorInput = document.getElementById('valor').value;
+  var listaValores = document.getElementById('valores');
+  
+  var node = document.createElement("li");
+  var textNode = document.createTextNode(valorInput);
+  node.appendChild(textNode);
+  listaValores.appendChild(node);
+}
+
+function ordenar() {
+    var listaValores = document.getElementById('valores');
+    var algoritmoSelecionado = document.getElementById('algoritmo').value;
+
+    var valores = Array.from(listaValores.children).map(item => parseInt(item.innerHTML));
+    switch (algoritmoSelecionado) {
+        case "bubbleSort":
+            valores = bubble_sort(valores);
+            break;
+        case "selectionSort":
+            valores = selection_sort(valores);
+            break;
+        case "quickSort":
+            valores = quick_sort(valores, 0, valores.length - 1);
+            break;
+        default:
+            break;
+    }
+    listaValores.innerHTML = valores.map(item => "<li>" + item + "</li>").join("");
+}
+
+
+
+function misturar() {
+  var listaValores = document.getElementById('valores');
+  var valores = Array.from(listaValores.children).map(item => parseInt(item.innerHTML));
+  shuffle(valores,valores.length);
+  listaValores.innerHTML = valores.map(item => "<li>" + item + "</li>").join("");
+}
+</script>
+
+</body>
+</html>
